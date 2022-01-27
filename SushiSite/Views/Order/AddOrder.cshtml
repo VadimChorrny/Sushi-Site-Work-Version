@@ -1,0 +1,82 @@
+﻿@model SushiSite.Models.Order;
+
+<div>
+    <form method="post" asp-action="AddOrder">
+        <h2 class="mb-3">Нове замовлення</h2>
+        <div class="form-group row">
+            <label class="col-4">Ім'я</label>
+            <input id="modelInput" asp-for="Name" class="form-control col-8">
+            <span asp-validation-for="Name" class="offset-4 text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-4">Фамілія</label>
+            <input id="modelInput" asp-for="Surname" class="form-control col-8">
+            <span asp-validation-for="Surname" class="offset-4 text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-4">По Батькові</label>
+            <input id="modelInput" asp-for="LastName" class="form-control col-8">
+            <span asp-validation-for="LastName" class="offset-4 text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-4">Адреса</label>
+            <input id="modelInput" asp-for="Address" class="form-control col-8">
+            <span asp-validation-for="Address" class="offset-4 text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-4">Телефон</label>
+            <input id="modelInput" asp-for="Phone" class="form-control col-8">
+            <span asp-validation-for="Phone" class="offset-4 text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="FoodId" class="col-4"></label>
+            <select asp-for="FoodId" asp-items="@ViewBag.FoodList" class="col-8">
+                <option disabled>--Select Food--</option>
+            </select>
+            <span asp-validation-for="FoodId" class="offset-4 text-danger"></span>
+        </div>
+        @*<div class="form-group row">
+            <div class="form-check col-6">
+                <input asp-for="NonCashCalculation" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Готікою
+                </label>
+            </div>
+            <div class="form-check col-4">
+                <input asp-for="CashSettlement" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Карткою
+                </label>
+            </div>
+        </div>*@
+        <div class="form-group row">
+            <div class="col-6">
+                <input type="submit" onclick="validateInputs()" class="btn btn-success w-100" value="Додати" />
+            </div>
+            <div class="col-6">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-dark w-100">Назад</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@* Client Validation *@
+@section Scripts
+{
+    @{
+    <partial name="_ValidationScriptsPartial.cshtml" />
+    }
+<script>
+    function validateInputs() {
+        const modelInput = document.getElementById("modelInput")
+        if(modelInput.value == ""){
+            Swal.fire({
+            title: 'Error!',
+            text: 'You must enter a valid model!',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+            })
+        }
+    }
+</script>
+}

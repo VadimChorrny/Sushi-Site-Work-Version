@@ -1,0 +1,36 @@
+﻿@model SushiSite.Models.Order
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title"><span class="font-weight-bold">Ім'я:</span> @Model.Name</h5>
+        <h5 class="card-title"><span class="font-weight-bold">Фамілія:</span> @Model.Surname</h5>
+        <h5 class="card-title"><span class="font-weight-bold">По Батькові:</span> @Model.LastName</h5>
+        <h5 class="card-title"><span class="font-weight-bold">Телефон:</span> @Model.Phone</h5>
+        <h5 class="card-title"><span class="font-weight-bold">Адреса:</span> @Model.Address</h5>
+        <h5 class="card-title">
+            <span class="font-weight-bold">Замовлення:</span>
+            @if (Model.Food != null)
+            {
+                @Model.Food.Title
+            }
+        </h5>
+        @if (Model.NonCashCalculation == true)
+        {
+            <h5 class="card-title"><span class="font-weight-bold">Тип оплати:</span> готівкою</h5>
+        }
+        @if (Model.CashSettlement == true)
+        {
+            <h5 class="card-title"><span class="font-weight-bold">Тип оплати:</span> карткою</h5>
+        }
+    </div>
+    <div class="btn-group">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-controller="Order" asp-action="Delete" asp-route-id="@Model.OrderId" class="btn btn-danger">Delete</a>
+        }
+    </div>
+</div>
